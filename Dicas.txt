@@ -1,0 +1,39 @@
+dotnet --version --> Verificar versão
+dotnet --list-sdks --> Versões instaladas no computador
+
+Para definir a versão do projeto:
+
+1 - Criar um arquivo global.json
+2 - Inserir JSON abaixo:
+
+{
+	"sdk": {
+		"version": "5.0.100"
+	}
+}
+
+3 - Salvar arquivo
+4 - dotnet -h
+5 - Verificar a versão que está sendo utilizada na primeira linha após o comando
+
+Criando API:
+Tip: dotnet new (Para ver todos os comandos)
+1 - Rodar o comando "dotnet new webapi -n ProEventos.API"
+2 - Entrar na pasta com o nome da API
+3 - dotnet watch run (assim é realizado o restart automático da aplicação)
+
+
+Protocolos HTTP/HTTPS
+
+1 - No arquivo launchSettings.json remover https://localhost:5001; para desenvolver com o protocolo HTTP,
+ir na classe Startup.cs e colocar app.UseHttpsRedirection(); dentro de um else no método "Configure"
+2 - Para rodar com o protocolo HTTPS, permanecer tudo default e rodar o comando dev-certs https --trust
+
+Log direto no terminal
+
+1 - Dentro do arquivo appsettings.Development.json alterar todas as propriedades para Information, assim
+é possível visualizar o tipo de requisição que foi feita
+
+Alterando Ambientes Desenvolvimento/Produção
+
+1 - No arquivo launchSettings.json alterar ASPNETCORE_ENVIRONMENT para Production
