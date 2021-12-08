@@ -99,4 +99,6 @@ Referenciando o contexto dentro do Controller
 2 - No seu parâmetro apertar CTRL + . e selecionar Initialize fiel from parameter
 3 - Remover o método Inumerable da Controller
 4 - Substituir os _evento por _context.Eventos
+5 - Quando tentar retornar um Evento e estiver com colchetes, remover Inumerable do método GetById e
+trocar o Where por FirstOrDefault
 
