@@ -37,3 +37,66 @@ Log direto no terminal
 Alterando Ambientes Desenvolvimento/Produção
 
 1 - No arquivo launchSettings.json alterar ASPNETCORE_ENVIRONMENT para Production
+
+Instalando o Entity Framkework
+
+1 - dotnet tool install --global dotnet-ef
+2 - Verificar versão dotnet-ef
+
+Referenciando o EF
+
+1 - Ter instalado o NugetGallery
+2 - CTRL + Shift + P
+3 - Procurar por NugetGallery e instalar
+4 - Procurar por Entity Framkework Tools e Desing e instalar
+5 - Procurar por Entity Framkework SQLite e instalar
+
+Criando Contexto
+
+1 - Criar um diretório chamado Data
+2 - Criar uma nova classe "DataContext.cs"
+3 - Herdar a classe DbContext
+4 - Importar o EntityFrameWork.Core
+5 - Criar um "prop" public DbSet<Evento> Eventos { get; set; }
+6 - Alterar o método ConfigureServices
+	    services.AddDbContext<DataContext>(
+                context => context.UseSqlite(Configuration.GetConnectionString("Default"))
+            );
+7 - Na classe DataContext criar um construtor
+	public DataContext(DbContextOptions<DataContext> options) : base(options)
+        {
+            
+        }
+8 - No arquivo appsettings.Development criar a configuração da ConnectionStrings
+
+{
+  "ConnectionStrings":{
+    "Default": "Data Source=ProEventos.db"
+  },
+  "Logging": {
+    "LogLevel": {
+      "Default": "Information",
+      "Microsoft": "Information",
+      "Microsoft.Hosting.Lifetime": "Information"
+    }
+  }
+}
+
+Adicionando Migrations
+
+1 - Executar o comando dotnet ef migrations add Initial -o Data/Migrations
+2 - Para criar o banco de dados executar o comando dotnet ef database update
+
+Referenciando o contexto dentro do Controller
+
+1 - Na sua controler adicionar o parâmetros do método Controller
+
+	public EventoController(DataContext context)
+        {
+            this._context = context;
+
+        }
+2 - No seu parâmetro apertar CTRL + . e selecionar Initialize fiel from parameter
+3 - Remover o método Inumerable da Controller
+4 - Substituir os _evento por _context.Eventos
+
